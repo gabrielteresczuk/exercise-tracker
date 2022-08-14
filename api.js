@@ -19,7 +19,7 @@ class DatosArray {
         try {
             let datos = this.listarTodo();
             let proximoId = this.proximoID(datos);
-            obj = {...obj,_id:proximoId,count:0,logs:[]};
+            obj = {...obj,_id:proximoId,count:0,log:[]};
             this.elementos.push(obj);
             return proximoId;
         } catch (error) {
@@ -36,22 +36,22 @@ class DatosArray {
 
             if(from){
                 let fromtime = new Date(from).getTime();
-                let filterfrom = producto.logs.filter(el => {return (new Date(el.date).getTime()) >= fromtime});
-                producto = {...producto,from:new Date(fromtime).toDateString(),logs:filterfrom}
+                let filterfrom = producto.log.filter(el => {return (new Date(el.date).getTime()) >= fromtime});
+                producto = {...producto,from:new Date(fromtime).toDateString(),log:filterfrom}
             }
 
             if(to){
                 let totime = new Date(to).getTime();
-                let filterto = producto.logs.filter(el => {return (new Date(el.date).getTime()) <= totime});
-                producto = {...producto,to:new Date(totime).toDateString(),logs:filterto}
+                let filterto = producto.log.filter(el => {return (new Date(el.date).getTime()) <= totime});
+                producto = {...producto,to:new Date(totime).toDateString(),log:filterto}
             }
 
             if(limit){
-                let limite = producto.logs.filter((el,index) => index < limit);
-                producto = {...producto,logs:limite}
+                let limite = producto.log.filter((el,index) => index < limit);
+                producto = {...producto,log:limite}
             }
 
-            producto = {...producto,count:producto.logs.length}
+            producto = {...producto,count:producto.log.length}
 
             return producto;
 
@@ -67,9 +67,9 @@ class DatosArray {
             let user = this.listarPorId(_id);
             let newUser = {...user,count: user.count+1};
 
-            newUser.logs.unshift({
+            newUser.log.unshift({
                 "date": date,
-                "duration": duration,
+                "duration": parseInt(duration),
                 "description": description
             });
 
@@ -81,7 +81,7 @@ class DatosArray {
                 "_id": _id.toString(),
                 "username": user.username,
                 "date": date,
-                "duration": duration,
+                "duration": parseInt(duration),
                 "description": description
             });
         } catch (error) {

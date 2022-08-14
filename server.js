@@ -48,6 +48,8 @@ app.post('/api/users/:_id/exercises',(req,res)=>{
 
     if(!date){
         date=new Date().toDateString();
+    }else{
+        date=new Date(date).toDateString();
     }
 
     let id=parseInt(_id);
